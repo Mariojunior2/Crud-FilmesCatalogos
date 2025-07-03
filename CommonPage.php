@@ -11,7 +11,6 @@ $filmes = listar_filmes();
         <th>Diretor</th>
         <th>Ano</th>
         <th>Gênero</th>
-        <th>Ações</th>
     </tr>
     <?php foreach ($filmes as $filme) : ?>
         <tr>
