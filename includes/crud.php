@@ -2,33 +2,49 @@
 include 'conexao.php';
 
 function listar_filmes() {
-    global $conn;
+    global $pdo;
     $sql = "SELECT * FROM filmes";
-    return mysqli_query($conn, $sql);
+    return $pdo->query($sql);
 }
 
 function buscarFilme($id) {
-    global $conn;
-    $sql = "SELECT * FROM filmes WHERE id = $id"; 
-    $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_assoc($result);
+    global $pdo;
+    $sql = "SELECT * FROM filmes WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function adicionarFilme($titulo, $diretor, $ano, $genero) {
-    global $conn;
-    $sql = "INSERT INTO filmes (titulo, diretor, ano, genero) VALUES ('$titulo','$diretor', $ano ,'$genero')";
-    return mysqli_query($conn, $sql);
+    global $pdo;
+    $sql = "INSERT INTO filmes (titulo, diretor, ano, genero) VALUES (:titulo, :diretor, :ano, :genero)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':titulo', $titulo);
+    $stmt->bindParam(':diretor', $diretor);
+    $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
+    $stmt->bindParam(':genero', $genero);
+    return $stmt->execute();
 }
 
 function editarFilme($id, $titulo, $diretor, $ano, $genero) {
-    global $conn;
-    $sql = "UPDATE filmes SET titulo='$titulo', diretor='$diretor', ano='$ano', genero='$genero' WHERE id=$id"; 
-    return mysqli_query($conn, $sql);
+    global $pdo;
+    $sql = "UPDATE filmes SET titulo = :titulo, diretor = :diretor, ano = :ano, genero = :genero WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':titulo', $titulo);
+    $stmt->bindParam(':diretor', $diretor);
+    $stmt->bindParam(':ano', $ano, PDO::PARAM_INT);
+    $stmt->bindParam(':genero', $genero);
+    return $stmt->execute();
 }
 
 function excluirFilme($id) {
-    global $conn;
-    $sql = "DELETE FROM filmes WHERE id=$id"; 
-    return mysqli_query($conn, $sql);
+    global $pdo;
+    $sql = "DELETE FROM filmes WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
 }
+
 ?>

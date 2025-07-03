@@ -1,31 +1,27 @@
-<?php 
-include 'includes/header.php';
-include 'includes/crud.php';
-
-$filmes = listar_filmes();
+<?php
+session_start();
 ?>
-<h2>Lista de Filmes</h2>
-<table>
-    <tr>
-        <th>Título</th>
-        <th>Diretor</th>
-        <th>Ano</th>
-        <th>Gênero</th>
-        <th>Ações</th>
-    </tr>
-    <?php while ($filme = mysqli_fetch_assoc($filmes)) : ?>
-        <tr>
-            <td><?php echo $filme['titulo']; ?></td>
-            <td><?php echo $filme['diretor']; ?></td>
-            <td><?php echo $filme['ano']; ?></td>
-            <td><?php echo $filme['genero']; ?></td>
-            <td>
-                <a class="button" href="editar.php?id=<?php echo $filme['id']; ?>">Editar</a>
 
-                <a class="button" href="excluir.php?id=<?php echo $filme['id']; ?>" onclick="return confirm('Deseja excluir este filme?')">Excluir</a>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-</table>
+<!DOCTYPE html>
+<html lang="en">
 
-<?php include 'includes/footer.php'; ?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body>
+    <h2>Login</h2>
+    <form method="POST" action="login_process.php">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"
+            required><br><br>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha"
+            required><br><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+
+</html>

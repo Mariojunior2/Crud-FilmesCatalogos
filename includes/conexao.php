@@ -4,10 +4,13 @@ $user = "root";
 $pass = "";
 $dbname = "catalogo_filmes";
 
-$conn = mysqli_connect($host, $user, $pass, $dbname);
 
-if (!$conn) {
-    die("Falha na conexão: ". mysqli_connect_error());
+try {
+$pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, 
+PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+die("Erro na conexão com o banco de dados: " . $e->getMessage());
 }
 
 ?>

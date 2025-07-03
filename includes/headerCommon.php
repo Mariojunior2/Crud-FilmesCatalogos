@@ -9,10 +9,6 @@
 <body>
     <header>
         <h1>Catálogo de Filmes</h1>
-        <nav>
-            <a href="adminPage.php">Início</a>
-            <a href="adicionar.php">Adicionar Filme</a>
-        </nav>
     </header>
     <main>
 
